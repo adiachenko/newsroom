@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Http\Resources\ArticleResource;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +18,17 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return ArticleResource::collection(Article::paginate(20));
+        $artiles = Article::when(request('search'), function (Builder $query) {
+            // Only search at the beginning of the string to avail of the index on the title column
+            // Most robust implementation would require full-text search like Algolia or ElasticSearch
+            $query->where('title', 'like', request('search').'%');
+        })->when(request('start_date'), function (Builder $query) {
+            $query->where('created_at', '>=', Carbon::parse(request('start_date')));
+        })->when(request('end_date'), function (Builder $query) {
+            $query->where('created_at', '<=', Carbon::parse(request('end_date')));
+        })->paginate(20);
+
+        return ArticleResource::collection($artiles);
     }
 
     /**
