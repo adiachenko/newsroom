@@ -9,7 +9,7 @@ class Article extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function author()
     {
         return $this->belongsTo(User::class);
     }

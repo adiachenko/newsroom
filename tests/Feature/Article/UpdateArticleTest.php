@@ -21,13 +21,13 @@ class UpdateArticleTest extends TestCase
             'title' => 'All that glitters is not gold',
             'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
         ], [
-            'Authorization' => "Bearer {$article->user->api_token}"
+            'Authorization' => "Bearer {$article->author->api_token}"
         ]);
 
         $response->assertStatus(200);
         $response->assertJsonStructure([
             'data' => [
-                'id', 'user_id', 'title', 'body',
+                'id', 'title', 'body',
             ]
         ]);
 
@@ -42,14 +42,14 @@ class UpdateArticleTest extends TestCase
     public function check_user_is_granted_writer_privileges()
     {
         $article = factory(Article::class)->create([
-            'user_id' => factory(User::class)->state(User::READER)
+            'author_id' => factory(User::class)->state(User::READER)
         ]);
 
         $response = $this->patchJson('api/articles/1', [
             'title' => 'All that glitters is not gold',
             'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
         ], [
-            'Authorization' => "Bearer {$article->user->api_token}"
+            'Authorization' => "Bearer {$article->author->api_token}"
         ]);
 
         $response->assertStatus(403);

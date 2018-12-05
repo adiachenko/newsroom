@@ -23,7 +23,6 @@ class ListArticlesTest extends TestCase
             'data' => [
                 [
                     'id',
-                    'user_id',
                     'title',
                     'body',
                 ]

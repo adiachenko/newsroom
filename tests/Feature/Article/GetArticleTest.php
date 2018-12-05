@@ -21,7 +21,7 @@ class GetArticleTest extends TestCase
         $response->assertStatus(200);
         $response->assertJsonStructure([
             'data' => [
-                'id', 'user_id', 'title', 'body',
+                'id', 'title', 'body',
             ]
         ]);
     }

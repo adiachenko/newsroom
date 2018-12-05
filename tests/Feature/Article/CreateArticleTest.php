@@ -26,12 +26,12 @@ class CreateArticleTest extends TestCase
         $response->assertStatus(200);
         $response->assertJsonStructure([
             'data' => [
-                'id', 'user_id', 'title', 'body',
+                'id', 'title', 'body',
             ]
         ]);
 
         $this->assertDatabaseHas('articles', [
-            'user_id' => $user->id,
+            'author_id' => $user->id,
             'title' => 'All that glitters is not gold',
             'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         ]);

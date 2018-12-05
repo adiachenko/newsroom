@@ -42,7 +42,7 @@ class ArticlePolicy
      */
     public function update(User $user, Article $article)
     {
-        return $user->isGranted(User::WRITER) && $user->is($article->user);
+        return $user->isGranted(User::WRITER) && $user->is($article->author);
     }
 
     /**
