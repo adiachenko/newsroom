@@ -44,7 +44,9 @@ class CreateAccountTest extends TestCase
     /** @test */
     public function check_required_fields_are_present()
     {
-        $response = $this->postJson('api/account');
+        $response = $this->postJson('api/account', [
+            // Oops! ;)
+        ]);
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrors(['name', 'email', 'password']);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AccountResource;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,9 +32,7 @@ class AccountController extends Controller
 
         $user = User::create($attributes);
 
-        return response()->json([
-            'data' => $user
-        ], 200);
+        return AccountResource::make($user)->response()->setStatusCode(200);
     }
 
     /**
@@ -43,8 +42,6 @@ class AccountController extends Controller
      */
     public function show()
     {
-        return response()->json([
-            'data' => Auth::user()
-        ]);
+        return AccountResource::make(Auth::user());
     }
 }

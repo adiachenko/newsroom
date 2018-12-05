@@ -13,3 +13,11 @@ $factory->define(User::class, function (Faker $faker) {
         'role' => User::READER,
     ];
 });
+
+$factory->state(User::class, User::WRITER, [
+    'role' => User::WRITER,
+]);
+
+$factory->state(User::class, User::READER, [
+    'role' => User::READER,
+]);

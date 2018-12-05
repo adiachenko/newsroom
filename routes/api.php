@@ -15,14 +15,36 @@ use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
-| User
+| Account
 |--------------------------------------------------------------------------
 */
 
 Route::post(
-    '/account',                                            'AccountController@store'
+    'account',                                             'AccountController@store'
 );
 
 Route::get(
-    '/account',                                            'AccountController@show'
+    'account',                                             'AccountController@show'
+)->middleware('auth:api');
+
+/*
+|--------------------------------------------------------------------------
+| Article
+|--------------------------------------------------------------------------
+*/
+
+Route::get(
+    'articles',                                            'ArticleController@index'
+);
+
+Route::post(
+    'articles',                                            'ArticleController@store'
+)->middleware('auth:api');
+
+Route::get(
+    'articles/{id}',                                       'ArticleController@show'
+);
+
+Route::patch(
+    'articles/{id}',                                       'ArticleController@update'
 )->middleware('auth:api');

@@ -21,4 +21,21 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'api_token',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
+
+    /**
+     * @param string $role
+     * @return bool
+     */
+    public function isGranted(string $role): bool
+    {
+        return $this->role == $role;
+    }
 }
