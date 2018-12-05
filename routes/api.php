@@ -48,3 +48,17 @@ Route::get(
 Route::patch(
     'articles/{id}',                                       'ArticleController@update'
 )->middleware('auth:api');
+
+/*
+|--------------------------------------------------------------------------
+| Comment
+|--------------------------------------------------------------------------
+*/
+
+Route::get(
+    'comments',                                            'CommentController@index'
+);
+
+Route::post(
+    'comments',                                            'CommentController@store'
+)->middleware('auth:api');
