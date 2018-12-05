@@ -13,4 +13,12 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function article()
+    {
+        return $this->belongsTo(Article::class);
+    }
 }

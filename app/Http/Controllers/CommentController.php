@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Http\Resources\CommentResource;
+use App\Notifications\CommentCreated;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,6 +47,10 @@ class CommentController extends Controller
         ]);
 
         Auth::user()->comments()->save($comment);
+
+        $comment->article->author->notify(
+            new CommentCreated($comment->article, $comment)
+        );
 
         return CommentResource::make($comment)->response()->setStatusCode(200);
     }
