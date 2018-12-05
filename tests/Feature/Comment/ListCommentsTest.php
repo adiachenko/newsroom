@@ -25,6 +25,7 @@ class ListCommentsTest extends TestCase
                     'id',
                     'article_id',
                     'body',
+                    'author' => ['id', 'name']
                 ]
             ]
         ]);

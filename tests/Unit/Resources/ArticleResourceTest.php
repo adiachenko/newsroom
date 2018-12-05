@@ -25,4 +25,16 @@ class ArticleResourceTest extends TestCase
         $this->assertEquals($article->created_at->toAtomString(), array_get($response, 'created_at'));
         $this->assertEquals($article->updated_at->toAtomString(), array_get($response, 'updated_at'));
     }
+
+    /** @test */
+    public function transform_article_relationships()
+    {
+        $article = factory(Article::class)->create();
+
+        $response = ArticleResource::make($article->load('author'))->resolve();
+
+        $author = optional(array_get($response, 'author'))->resolve();
+        $this->assertEquals($article->author->id, array_get($author, 'id'));
+        $this->assertEquals($article->author->name, array_get($author, 'name'));
+    }
 }

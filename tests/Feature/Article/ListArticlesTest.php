@@ -26,6 +26,7 @@ class ListArticlesTest extends TestCase
                     'id',
                     'title',
                     'body',
+                    'author' => ['id', 'name']
                 ]
             ]
         ]);

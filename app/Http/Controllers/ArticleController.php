@@ -18,7 +18,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $artiles = Article::when(request('search'), function (Builder $query) {
+        $artiles = Article::with('author')->when(request('search'), function (Builder $query) {
             // Only search at the beginning of the string to avail of the index on the title column
             // Most robust implementation would require full-text search like Algolia or ElasticSearch
             $query->where('title', 'like', request('search').'%');
@@ -64,7 +64,7 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        return ArticleResource::make(Article::findOrFail($id));
+        return ArticleResource::make(Article::with('author')->findOrFail($id));
     }
 
     /**

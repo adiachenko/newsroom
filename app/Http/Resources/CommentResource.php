@@ -7,6 +7,13 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class CommentResource extends JsonResource
 {
     /**
+     * Typehint Eloquent model for improved code intelligence
+     *
+     * @var \App\Comment
+     */
+    public $resource;
+
+    /**
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -20,6 +27,7 @@ class CommentResource extends JsonResource
             'body' => $this->resource->body,
             'created_at' => $this->resource->created_at->toAtomString(),
             'updated_at' => $this->resource->updated_at->toAtomString(),
+            'author' => AuthorResource::make($this->whenLoaded('author')),
         ];
     }
 }

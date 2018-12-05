@@ -18,7 +18,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::when(request('article'), function (Builder $query) {
+        $comments = Comment::with('author')->when(request('article'), function (Builder $query) {
             $query->where('article_id', request('article'));
         })->paginate(20);
 
